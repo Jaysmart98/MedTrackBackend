@@ -101,7 +101,7 @@ const MailVerification = async(email, username, link) => {
                             
                             <!-- Call-to-action Button -->
                             <div class="button-container" style="text-align: center; margin-top: 24px; margin-bottom: 24px;">
-                                <a href="\[Verify Link\]" class="button" style="display: inline-block; padding: 12px 24px; background-color: #3b82f6; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: bold;">Verify My Email Address</a>
+                               <a href="${link}" class="button" style="display: inline-block; padding: 12px 24px; background-color: #059669; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;">Verify Email</a>
                             </div>
 
                             <p>Thank you for signing up!</p>
