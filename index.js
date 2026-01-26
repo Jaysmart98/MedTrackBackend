@@ -16,6 +16,7 @@ app.set("view engine", "ejs")
 
 const port = 8008
 
+connect();
 
 app.listen(port, () => {
     console.log(`Server is running on ${port}`)
