@@ -20,7 +20,7 @@ const userSignup = async (req, res) =>{
         const link = `https://med-track-frontend.vercel.app/verify/email/${email}`
         // const link = `${process.env.BASE_URL}/verify/email/${email}`;
         
-     const mailsent = await MailVerification(email, username, link, htmlTemplate);
+     const mailsent = await MailVerification(email, username, link);
           if (mailsent) {
             newuser = await userModel.create({
             username,
@@ -65,7 +65,7 @@ const userLogin = async (req, res) =>{
       return res.status(400).json({message:"email is not verified, check your email for verification email", status:false})
     }
 
-      const token =  await jwt.sign({email:existuser.email,id:existuser._id}, process.env.JWT_SECRETKEY,{expiresIn:300} )
+      const token =  await jwt.sign({email:existuser.email,id:existuser._id}, process.env.JWT_SECRETKEY,{expiresIn:"30mins"} )
       return res.status(200).json({message:"Login successful", status:true, token})
    } catch (error) {
      return res.status(500).json({message:error.message, status:false})

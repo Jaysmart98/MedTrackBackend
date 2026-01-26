@@ -33,7 +33,7 @@ const MailVerification = async(email, username, link) => {
                             <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 30px;">
                                 <tr>
                                     <td align="center">
-                                        <a href="https://med-track-frontend.vercel.app/verify/email/${email}" style="display: inline-block; padding: 14px 30px; background-color: #0d6efd; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;">Verify Email Address</a>
+                                        <a href="${link}" style="display: inline-block; padding: 14px 30px; background-color: #0d6efd; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;">Verify Email Address</a>
                                     </td>
                                 </tr>
                             </table>
@@ -65,20 +65,20 @@ const MailVerification = async(email, username, link) => {
 
 
     const mailOptions = {
-        from: process.env.PASS_EMAIL,
+        from: process.env.USER_EMAIL,
         to: email,
-        subject: `Email Verification for ${username}`,
+        subject: `Verify your MedTrack account, ${username}`,
         html: MessageTemplate
     }
 
-    try {
-        const mailed = await transporter.sendMail(mailOptions)
-        if (mailed) {
-            return "mail sent"
-        } 
+try {
+        await transporter.sendMail(mailOptions);
+        console.log("Verification email sent to:", email);
+        return true;
     } catch (error) {
-        console.log(error)
+        console.error("Email Error:", error);
+        return false;
     }
-}
+};
 
-module.exports = MailVerification
+module.exports = MailVerification;
