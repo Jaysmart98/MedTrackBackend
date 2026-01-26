@@ -1,5 +1,6 @@
 const express = require("express")
 const app = express()
+const mongoose = require("mongoose")
 require('dotenv').config()
 const connect  = require("./database/db.connect")
 const userrouter = require('./route/user.route')
@@ -14,6 +15,7 @@ app.use("/", userrouter)
 app.set("view engine", "ejs")
 
 const port = 8008
+
 
 app.listen(port, () => {
     console.log(`Server is running on ${port}`)
