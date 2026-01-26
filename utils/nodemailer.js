@@ -97,12 +97,12 @@ const MailVerification = async(email, username, link) => {
                         <td class="content" style="padding: 32px 24px; color: #333333; line-height: 1.6;">
                             <h2 style="font-size: 20px; color: #1f2937; margin-top: 0;">Hello, ${username}</h2>
 
-                            <p>Email Verified. Thank you for signing up.</p>
-                            <p>Please click below button to login to your dashboard.</p>
-                            
+                            <p>Account Verified!</p>
+                            <p>The email <%= email %> has been successfully verified.</p>
+
                             <!-- Call-to-action Button -->
                             <div class="button-container" style="text-align: center; margin-top: 24px; margin-bottom: 24px;">
-                               <a href="https://med-track-frontend.vercel.app/signin" class="button" style="display: inline-block; padding: 12px 24px; background-color: #3b82f6; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: bold;">Verify Email</a>
+                               <a href="https://med-track-frontend.vercel.app/signin" class="button" style="display: inline-block; padding: 12px 24px; background-color: #3b82f6; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: bold;">Click here to Login</a>
                             </div>
 
                             <p>Thank you for signing up!</p>
