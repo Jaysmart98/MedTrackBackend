@@ -125,9 +125,9 @@ const MailVerification = async(email, username, link) => {
 </html>`
 
    const transporter = await nodemailer.createTransport({
-        service:"gmail",
-        auth:{
-            user:process.env.USER_EMAIL,
+        service: "gmail",
+        auth: {
+            user: process.env.USER_EMAIL,
             pass: process.env.USER_PASS
         }
     })
