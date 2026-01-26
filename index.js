@@ -7,10 +7,22 @@ const connect  = require("./database/db.connect")
 const userrouter = require('./route/user.route')
 const ejs = require("ejs")
 
+const allowedOrigins = [
+  "http://localhost:5173", 
+  "https://med-track-frontend.vercel.app"
+];
+
 currentUser = ""
 
 app.use(cors({
-    origin: "http://localhost:5173", // Allow your React app
+    origin: function (origin, callback) {
+        // allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.indexOf(origin) === -1) {
+            return callback(new Error('CORS policy violation'), false);
+        }
+        return callback(null, true);
+    },
     methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
     credentials: true
 }));
