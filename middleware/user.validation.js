@@ -1,6 +1,6 @@
 const yup = require("yup")
 
-const usernameRegex = /^[a-zA-Z0-9_.]{3,16}$/
+const usernameRegex = /^[a-zA-Z0-9_]{3,16}$/
 
 const validationSchema =  yup.object({
     username:yup.string().min(3, "Username can not be less than three characters").matches(usernameRegex, "username must be unique").required("Username  is required"),
