@@ -3,118 +3,49 @@ const nodemailer = require("nodemailer")
 
 const MailVerification = async(email, username, link) => {
 
-    const MessageTemplate = 
-    `<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Action Required: Verify Your Email</title>
-        <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            -webkit-text-size-adjust: 100%;
-            -ms-text-size-adjust: 100%;
-            background-color: #f4f4f4;
-        }
-        table, td {
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
-        }
-        img {
-            -ms-interpolation-mode: bicubic;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background-color: #ffffff;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        .header {
-            background-color: #3b82f6;
-            padding: 24px;
-            text-align: center;
-            color: #ffffff;
-        }
-        .header h1 {
-            font-size: 24px;
-            margin: 0;
-        }
-        .content {
-            padding: 32px 24px;
-            color: #333333;
-            line-height: 1.6;
-        }
-        .content h2 {
-            font-size: 20px;
-            color: #1f2937;
-            margin-top: 0;
-        }
-        .button-container {
-            text-align: center;
-            margin-top: 24px;
-            margin-bottom: 24px;
-        }
-        .button {
-            display: inline-block;
-            padding: 12px 24px;
-            background-color: #3b82f6;
-            color: #ffffff !important;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-        }
-        .footer {
-            background-color: #e5e7eb;
-            padding: 24px;
-            text-align: center;
-            color: #6b7280;
-            font-size: 12px;
-        }
-        .footer a {
-            color: #6b7280;
-            text-decoration: underline;
-        }
-    </style>
-    </head>
-    <body style="margin: 0; padding: 0; background-color: #f4f4f4;">
-        <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="background-color: #f4f4f4;">
-            <tr>
-            <td align="center" style="padding: 20px;">
-                <table role="presentation" class="container" width="600" cellspacing="0" cellpadding="0" border="0" style="background-color: #ffffff; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                    <!-- Header -->
+    const MessageTemplate =  `
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify Your Email</title>
+</head>
+<body style="margin: 0; padding: 0; background-color: #f8f9fa; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+    <table border="0" cellpadding="0" cellspacing="0" width="100%">
+        <tr>
+            <td align="center" style="padding: 20px 0;">
+                <table border="0" cellpadding="0" cellspacing="0" width="600" style="background-color: #ffffff; border-radius: 8px; border: 1px solid #dee2e6; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
                     <tr>
-                        <td class="header" style="background-color: #3b82f6; padding: 24px; text-align: center; color: #ffffff; border-top-left-radius: 8px; border-top-right-radius: 8px;">
-                            <h1 style="font-size: 24px; margin: 0;">MedReminder & HealthTracker</h1>
+                        <td align="center" style="padding: 40px 0; background-color: #0d6efd;">
+                             <h1 style="color: #ffffff; margin: 0; font-size: 28px;">MedTrack</h1>
                         </td>
                     </tr>
-                    <!-- Content -->
                     <tr>
-                        <td class="content" style="padding: 32px 24px; color: #333333; line-height: 1.6;">
-                            <h2 style="font-size: 20px; color: #1f2937; margin-top: 0;">Hello, ${username}</h2>
-
-                            <p>Account Verified!</p>
-                            <p>The email <%= email %> has been successfully verified.</p>
-
-                            <!-- Call-to-action Button -->
-                            <div class="button-container" style="text-align: center; margin-top: 24px; margin-bottom: 24px;">
-                               <a href="https://med-track-frontend.vercel.app/signin" class="button" style="display: inline-block; padding: 12px 24px; background-color: #3b82f6; color: #ffffff !important; text-decoration: none; border-radius: 6px; font-weight: bold;">Click here to Login</a>
-                            </div>
-
-                            <p>Thank you for signing up!</p>
-                        </td>
-                    </tr>
-                    <!-- Footer -->
-                    <tr>
-                        <td class="footer" style="background-color: #e5e7eb; padding: 24px; text-align: center; color: #6b7280; font-size: 12px; border-bottom-left-radius: 8px; border-bottom-right-radius: 8px;">
-                            <p style="margin: 0;">© 2025 MedTrack. All rights reserved.</p>
-                            <p style="margin: 8px 0 0;">
-                                <a href="https://www.example.com/unsubscribe" style="color: #6b7280; text-decoration: underline;">Unsubscribe</a>
+                        <td style="padding: 40px 30px;">
+                            <h2 style="color: #212529; margin-top: 0;">Welcome, ${username}!</h2>
+                            <p style="color: #6c757d; font-size: 16px; line-height: 1.6;">
+                                Thank you for joining MedTrack. We're excited to help you manage your health and medication reminders more effectively.
                             </p>
+                            <p style="color: #6c757d; font-size: 16px; line-height: 1.6;">
+                                To get started, please confirm your email address by clicking the button below.
+                            </p>
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-top: 30px;">
+                                <tr>
+                                    <td align="center">
+                                        <a href="https://med-track-frontend.vercel.app/verify/email/${email}" style="display: inline-block; padding: 14px 30px; background-color: #0d6efd; color: #ffffff; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 16px;">Verify Email Address</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <p style="color: #adb5bd; font-size: 14px; margin-top: 30px;">
+                                If you didn't create an account with us, you can safely ignore this email.
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 20px 30px; background-color: #f1f3f5; text-align: center; color: #6c757d; font-size: 12px;">
+                            &copy; 2026 MedTrack Health Systems. All rights reserved.<br>
+                            Lagos, Nigeria.
                         </td>
                     </tr>
                 </table>
@@ -122,7 +53,7 @@ const MailVerification = async(email, username, link) => {
         </tr>
     </table>
 </body>
-</html>`
+</html>` ;
 
    const transporter = await nodemailer.createTransport({
         service: "gmail",
