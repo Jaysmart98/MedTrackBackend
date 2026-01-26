@@ -20,7 +20,7 @@ const userSignup = async (req, res) =>{
         const link = `https://med-track-frontend.vercel.app/verify/email/${email}`
         // const link = `${process.env.BASE_URL}/verify/email/${email}`;
         
-       const mailsent =  await MailVerification(email, username, link)
+     const mailsent = await MailVerification(email, username, link, htmlTemplate);
           if (mailsent) {
             newuser = await userModel.create({
             username,
