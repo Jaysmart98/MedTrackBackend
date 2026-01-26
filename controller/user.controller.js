@@ -17,7 +17,7 @@ const userSignup = async (req, res) =>{
 
         const hashedPassword = await bcrypt.hash(password,10)
 
-        const link = `https://pe-backend-liard.vercel.app/verify/email/${email}`
+        const link = `https://med-track-frontend.vercel.app/verify/email/${email}`
         
        const mailsent =  await MailVerification(email, username, link)
           if (mailsent) {
