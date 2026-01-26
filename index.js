@@ -8,8 +8,8 @@ const userrouter = require('./route/user.route')
 const ejs = require("ejs")
 
 const allowedOrigins = [
-  "http://localhost:5173", 
-  "https://med-track-frontend.vercel.app"
+  "https://med-track-frontend.vercel.app",
+  "http://localhost:5173"
 ];
 
 currentUser = ""
