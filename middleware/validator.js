@@ -1,5 +1,4 @@
 
-
 const validateUser = (schema) => async (req, res, next) => {
     try {
         const body = req.body
