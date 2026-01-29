@@ -116,7 +116,7 @@ const userLogin = async (req, res) =>{
     if (!existuser.verified) {
       return res.status(400).json({message:"email is not verified, check your email for verification email", status:false})
     }
-      const token =  await jwt.sign({email:existuser.email,id:existuser._id}, process.env.JWT_SECRETKEY,{expiresIn:"30mins"} )
+      const token =  await jwt.sign({email:existuser.email,id:existuser._id}, process.env.JWT_SECRETKEY,{expiresIn:"1d"} )
       return res.status(200).json({message:"Login successful", status:true, token})
    } catch (error) {
      return res.status(500).json({message:error.message, status:false})
@@ -124,13 +124,13 @@ const userLogin = async (req, res) =>{
 }
 
 
-    const existingUser = await userModel.findOne({ email });
-    if (existingUser) {
-      return res.status(400).json({
-        message: "Email already in use",
-        status: false
-      });
-    }
+    // const existingUser = await userModel.findOne({ email });
+    // if (existingUser) {
+    //   return res.status(400).json({
+    //     message: "Email already in use",
+    //     status: false
+    //   });
+    // }
 
 
 
