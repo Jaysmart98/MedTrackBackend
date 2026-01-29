@@ -29,7 +29,7 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // support preflight
+app.options("*", cors(corsOptions)); // handle preflight requests
 
 // JSON parser
 app.use(express.json({ limit: "50mb" }));
@@ -37,13 +37,9 @@ app.use(express.json({ limit: "50mb" }));
 // Routes
 app.use("/", userrouter);
 
-// CORS error handler
-app.use((err, req, res, next) => {
-  if (err.message === "Not allowed by CORS") {
-    return res.status(403).json({ message: "CORS error: origin not allowed" });
-  }
-  next(err);
-});
+// ❌ Remove the custom CORS error handler
+// Express + cors will automatically send the correct headers
+// If you keep this, it overrides the headers and causes the browser block
 
 const port = process.env.PORT || 8008;
 
@@ -54,3 +50,6 @@ app.listen(port, () => {
 });
 
 module.exports = app;
+
+
+
