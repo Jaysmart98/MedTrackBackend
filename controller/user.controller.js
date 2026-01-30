@@ -201,15 +201,10 @@ const verifyemail = async (req, res) => {
     const decoded = jwt.verify(token, process.env.JWT_SECRETKEY);
 
     const user = await userModel.findById(decoded.id);
+
     if (!user) {
       return res.redirect(
-        "https://med-track-frontend.vercel.app/email-verified?status=invalid-user"
-      );
-    }
-
-    if (user.verified) {
-      return res.redirect(
-        `https://med-track-frontend.vercel.app/email-verified?status=already-verified&email=${user.email}`
+        "https://med-track-frontend.vercel.app/email-verified?status=failed"
       );
     }
 
@@ -219,12 +214,14 @@ const verifyemail = async (req, res) => {
     return res.redirect(
       `https://med-track-frontend.vercel.app/email-verified?status=success&email=${user.email}`
     );
+
   } catch (error) {
     return res.redirect(
-      "https://med-track-frontend.vercel.app/email-verified?status=invalid-or-expired-token"
+      "https://med-track-frontend.vercel.app/email-verified?status=failed"
     );
   }
 };
+
 
 
 
