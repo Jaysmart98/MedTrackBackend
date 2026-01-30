@@ -72,7 +72,7 @@ const userSignup = async (req, res) => {
       { expiresIn: "1d" }
     );
 
-    const link = `https://med-track-frontend.vercel.app/verify/email/${token}`;
+    const link = `https://med-track-backend.vercel.app/verify/email/${token}`;
     await MailVerification(email, username, link);
 
     return res.status(201).json({
