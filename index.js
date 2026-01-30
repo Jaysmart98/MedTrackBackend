@@ -14,7 +14,7 @@ const allowedOrigins = [
 
 app.use(cors({
   origin: (origin, callback) => {
-    // allow server-to-server & Postman
+
     if (!origin) return callback(null, true);
 
     if (allowedOrigins.includes(origin)) {
@@ -28,7 +28,7 @@ app.use(cors({
   credentials: true
 }));
 
-// IMPORTANT: this handles preflight automatically
+
 app.use(express.json({ limit: "50mb" }));
 
 app.use("/", userrouter);

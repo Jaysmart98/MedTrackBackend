@@ -5,48 +5,6 @@ const MailVerification = require("../utils/nodemailer")
 const cloudinary = require("../utils/cloudinary")
 
 
-
-
-// const userSignup = async (req, res) =>{
-//     try {
-//         const { username, email , password} = req.body
-//         console.log(req.body);
-        
-//         if (!username || !email || !password) {
-//             return res.status(400).json({message:"All fields are mandatory", status:false})
-//         }
-
-//          let newuser
-
-//         const hashedPassword = await bcrypt.hash(password,10)
-
-//         const link = `https://med-track-frontend.vercel.app/verify/email/${email}`
-//         // const link = `${process.env.BASE_URL}/verify/email/${email}`;
-        
-//      const mailsent = await MailVerification(email, username, link);
-//           if (mailsent) {
-//             newuser = await userModel.create({
-//             username,
-//             email,
-//             password:hashedPassword
-//             })
-//           }
-//        if (newuser) {
-//             return res.status(200).json({message:"Sign up successful", status:true})
-        
-//        }
-//     } catch (error) {
-//        if (error.message.includes("E11000 duplicate key error ")) {
-//         return res.status(400).json({message:"User already Exist", status:false})
-//        }
-//         if (error.message.includes("buffering timed out")) {
-//          return res.status(500).json({message:"Network error", status:false})     
-//         }
-//       return res.status(500).json({message:error.message, status:false})
-        
-//     }
-// }
-
 const userSignup = async (req, res) => {
   try {
     const { username, email, password } = req.body;
@@ -91,9 +49,6 @@ const userSignup = async (req, res) => {
   }
 };
 
-
-
-
 const userLogin = async (req, res) =>{
    try {
      const {email , password} = req.body
@@ -106,10 +61,6 @@ const userLogin = async (req, res) =>{
     if (!existuser) {
      return res.status(400).json({message:"Invalid  email or password.", status:false}) 
     }
-    //  const hashedPassword =  await bcrypt.compare(password, existuser.password)
-    //    if (!hashedPassword) {
-    //      return res.status(400).json({message:"Invalid  email or password.", status:false})
-    //    }
 
     const isPasswordMatch = await bcrypt.compare(password, existuser.password);
 
@@ -126,36 +77,6 @@ const userLogin = async (req, res) =>{
    }
 }
 
-
-    // const existingUser = await userModel.findOne({ email });
-    // if (existingUser) {
-    //   return res.status(400).json({
-    //     message: "Email already in use",
-    //     status: false
-    //   });
-    // }
-
-
-
-// const verifytoken = async (req, res) =>{
-//     try {
-//         const token = req.headers.authorization.split(" ")[1]
-//         console.log(token);
-        
-//         if (!token) {
-//          return res.status(400).json({message:"Invalid  token", status:false})   
-//         }
-//         const verifytoken =   await jwt.verify(token, process.env.JWT_SECRETKEY)
-//         console.log(verifytoken);
-//         if (verifytoken) {
-//           return res.status(200).json({message:"token verified", status:true})
-            
-//         }
-//     } catch (error) {
-//         console.log(error);
-//      return res.status(500).json({message:error.message, status:false})
-//     }
-// }
 
 const verifytoken = async (req, res) => {
   try {
@@ -175,23 +96,6 @@ const verifytoken = async (req, res) => {
   }
 };
 
-
-
-// const verifyemail = async(req, res) =>{
-//   try {
-//     const {email} = req.params
-//     const user =  await userModel.findOne({email})
-//     if(user){
-//       user.verified = true
-//       user.save()
-//       return  res.render("verify",{email})
-//     }
-//       return  res.render("verify",{email: ""})
-//   } catch (error) {
-//     console.log(error);
-//       return  res.render("verify",{email: ""})
-//   }
-// }
 
 
 const verifyemail = async (req, res) => {
@@ -221,9 +125,6 @@ const verifyemail = async (req, res) => {
     );
   }
 };
-
-
-
 
 
 const UpdateProfile =  async (req, res) => {
