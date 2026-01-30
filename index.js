@@ -1,42 +1,35 @@
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 require("dotenv").config();
+
 const connect = require("./database/db.connect");
 const userrouter = require("./route/user.route");
+
 const app = express();
-require("ejs")
-
-
 
 const allowedOrigins = [
   "https://med-track-frontend.vercel.app",
   "http://localhost:5173"
 ];
 
-// const corsOptions = {
-//   origin: function (origin, callback) {
-//     if (!origin) return callback(null, true);
-//     if (allowedOrigins.includes(origin)) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error("Not allowed by CORS"));
-//     }
-//   },
-//   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-//   credentials: true,
-//   allowedHeaders: ["Content-Type", "Authorization"]
-// };
-app.set("view engine", "ejs");
 app.use(cors({
-  origin:allowedOrigins,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-// app.options("/*", cors(corsOptions));
-app.use(express.json({ limit: "50mb" }));
+  origin: (origin, callback) => {
+    // allow server-to-server & Postman
+    if (!origin) return callback(null, true);
 
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error("Not allowed by CORS"));
+  },
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true
+}));
+
+// IMPORTANT: this handles preflight automatically
+app.use(express.json({ limit: "50mb" }));
 
 app.use("/", userrouter);
 
@@ -45,10 +38,11 @@ const port = process.env.PORT || 8008;
 connect();
 
 app.listen(port, () => {
-  console.log(`Server is running on ${port}`);
+  console.log(`Server running on port ${port}`);
 });
 
 module.exports = app;
+
 
 
 

@@ -193,6 +193,7 @@ const verifytoken = async (req, res) => {
 //   }
 // }
 
+
 const verifyemail = async (req, res) => {
   try {
     const { token } = req.params;
@@ -201,18 +202,30 @@ const verifyemail = async (req, res) => {
 
     const user = await userModel.findById(decoded.id);
     if (!user) {
-      return res.render("verify", { email: "" });
+      return res.redirect(
+        "https://med-track-frontend.vercel.app/email-verified?status=invalid-user"
+      );
+    }
+
+    if (user.verified) {
+      return res.redirect(
+        `https://med-track-frontend.vercel.app/email-verified?status=already-verified&email=${user.email}`
+      );
     }
 
     user.verified = true;
     await user.save();
 
-    return res.render("verify", { email: user.email });
-
+    return res.redirect(
+      `https://med-track-frontend.vercel.app/email-verified?status=success&email=${user.email}`
+    );
   } catch (error) {
-    return res.render("verify", { email: "" });
+    return res.redirect(
+      "https://med-track-frontend.vercel.app/email-verified?status=invalid-or-expired-token"
+    );
   }
 };
+
 
 
 
