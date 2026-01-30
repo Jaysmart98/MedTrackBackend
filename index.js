@@ -5,6 +5,9 @@ require("dotenv").config();
 const connect = require("./database/db.connect");
 const userrouter = require("./route/user.route");
 const app = express();
+require("ejs")
+
+
 
 const allowedOrigins = [
   "https://med-track-frontend.vercel.app",
@@ -24,7 +27,7 @@ const allowedOrigins = [
 //   credentials: true,
 //   allowedHeaders: ["Content-Type", "Authorization"]
 // };
-
+app.set("view engine", "ejs");
 app.use(cors({
   origin:allowedOrigins,
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
