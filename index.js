@@ -14,21 +14,23 @@ const allowedOrigins = process.env.ALLOWED_ORIGINS
 const corsOptions = {
   origin: (origin, callback) => {
     if (!origin) return callback(null, true);
+
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
+
     return callback(null, false);
   },
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 204, // IMPORTANT for Vercel
 };
 
-// ✅ Express 5 compatible
-app.options("/*", cors(corsOptions));
+// ✅ THIS IS ALL YOU NEED
 app.use(cors(corsOptions));
-
 app.use(express.json({ limit: "50mb" }));
+
 app.use("/", userrouter);
 
 const port = process.env.PORT || 8008;
@@ -37,3 +39,5 @@ connect();
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+module.exports = app;
