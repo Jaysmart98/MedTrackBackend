@@ -27,7 +27,7 @@ const corsOptions = {
   optionsSuccessStatus: 204, // IMPORTANT for Vercel
 };
 
-// ✅ THIS IS ALL YOU NEED
+
 app.use(cors(corsOptions));
 app.use(express.json({ limit: "50mb" }));
 
