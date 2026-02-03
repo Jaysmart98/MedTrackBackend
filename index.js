@@ -24,7 +24,7 @@ const corsOptions = {
   credentials: true,
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
-  optionsSuccessStatus: 204, // IMPORTANT for Vercel
+  optionsSuccessStatus: 204,
 };
 
 
