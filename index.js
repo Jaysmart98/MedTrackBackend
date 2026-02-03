@@ -7,7 +7,7 @@ const userrouter = require("./route/user.route");
 
 const app = express();
 
-const allowedOrigins = process.env;
+const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',').map(origin => origin.trim()) : [];
 
 app.use(cors({
   origin: (origin, callback) => {
